@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>车辆数据实时监测系统</title>
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+
+<body>
+  <!-- 头部的盒子 -->
+  <header>
+    <h1>车辆数据实时监测系统</h1>
+    <div class="showTime"></div>
+    <script>
+      var t = null;
+      t = setTimeout(time, 1000); //开始运行
+      function time() {
+        clearTimeout(t); //清除定时器
+        dt = new Date();
+        var y = dt.getFullYear();
+        var mt = dt.getMonth() + 1;
+        var day = dt.getDate();
+        var h = dt.getHours(); //获取时
+        var m = dt.getMinutes(); //获取分
+        var s = dt.getSeconds(); //获取秒
+        document.querySelector(".showTime").innerHTML =
+          "当前时间：" +
+          y +
+          "年" +
+          mt +
+          "月" +
+          day +
+          "-" +
+          h +
+          "时" +
+          m +
+          "分" +
+          s +
+          "秒";
+        t = setTimeout(time, 1000); //设定定时器，循环运行
+      }
+    </script>
+  </header>
+
+  <!-- 页面主体部分 -->
+  <section class="mainbox">
+    <div class="column">
+      <div class="panel bar">
+        <h2>车辆实时数据信息</h2>
+        <div id="chartsRealDataLine" class="chart">图表</div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel line">
+        <h2>
+          里程数 <a href="javacript:;"></a><a href="javascript:;"></a>
+        </h2>
+        <div class="chart">图表</div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel pie">
+        <h2>车辆具体数据信息</h2>
+        <div class="chart">
+          <p>经度：<span id="longitude"></span>&nbsp;&nbsp;E</p>
+          <p>纬度：<span id="latitude"></span>&nbsp;&nbsp;N</p>
+          <p>速度：<span id="speed"></span>&nbsp;&nbsp;KM/H</p>
+          <p>累计里程：<span id="mileage"></span>&nbsp;&nbsp;KM</p>
+          <p>油门开度：<span id="accelerator"></span>&nbsp;&nbsp;%</p>
+          <p>总油耗：<span id="totalFuelConsumption"></span>&nbsp;&nbsp;L</p>
+          <p>瞬时油耗：<span id="instantFuelConsumption"></span>&nbsp;&nbsp;L/100KM</p>
+          <p>挡位：<span id="gear"></span>&nbsp;&nbsp;档</p>
+          <p>驾驶模式：<span id="drivingMode"></span>&nbsp;&nbsp;</p>
+
+        </div>
+        <div class="panel-footer"></div>
+      </div>
+    </div>
+    <div class="column">
+      <!-- 地图模块 -->
+      <div class="chart map-show" id="container" style="height: 100%;"></div>
+    </div>
+    </div>
+    <div class="column">
+      <div class="panel bar2">
+        <h2>里程表与发动机转速表</h2>
+        <div id="chartsCarGauge" class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel line2">
+        <h2>驾驶时长</h2>
+        <div id="chartsDrivingTimeBar" class="chart">图表</div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel pie2">
+        <h2>车速-转速散点图</h2>
+        <div id="chartsDrivingTimeAndMileageLine" class="chart">图表</div>
+        <div class="panel-footer"></div>
+      </div>
+    </div>
+  </section>
+  <script src="https://webapi.amap.com/loader.js"></script>
+  <script>
+    //高德秘钥
+    window._AMapSecurityConfig = {
+      securityJsCode: '412f89c95cbe10bfcac0c72deaa1c579'
+    };
+  </script>
+  <!-- 先引入jquery -->
+  <script src="js/jquery.js"></script>
+  <script src="js/flexible.js"></script>
+  <script src="js/echarts.js"></script>
+  <script src="js/china.js"></script>
+  <script src="js/gpsConvert.js"></script>
+  <script src="js/index.js"></script>
+</body>
+
+</html>

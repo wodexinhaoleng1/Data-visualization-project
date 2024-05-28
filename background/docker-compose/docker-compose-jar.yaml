@@ -1,0 +1,11 @@
+version: "3"
+services:
+  api:
+    image: centos7_jdk1.8.0_311:latest
+    container_name: api
+    ports:
+      - 8081:8081
+    volumes:
+      - ./cx/:/yjh-api/
+    network_mode: host
+    restart: always

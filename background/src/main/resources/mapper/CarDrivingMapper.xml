@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.platform.yjhapi.mapper.CarDrivingMapper">
+    <resultMap type="com.demo.platform.yjhapi.domain.CarDriving" id="CarDrivingResult">
+        <result property="id"    column="id"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="speed"    column="speed"    />
+        <result property="mileage"    column="mileage"    />
+        <result property="altitude"    column="altitude"    />
+        <result property="direction"    column="direction"    />
+        <result property="accelerator"    column="accelerator"    />
+        <result property="torquePercentage"    column="torque_percentage"    />
+        <result property="totalFuelConsumption"    column="total_fuel_consumption"    />
+        <result property="instantFuelConsumption"    column="instant_fuel_consumption"    />
+        <result property="engineSpeed"    column="engine_speed"    />
+        <result property="gear"    column="gear"    />
+        <result property="drivingMode"    column="driving_mode"    />
+        <result property="orderBy"    column="order_by"    />
+    </resultMap>
+
+    <sql id="selectCarDrivingVo">
+        select
+            id, longitude, latitude, speed, mileage, altitude, direction, accelerator, torque_percentage, total_fuel_consumption,
+            instant_fuel_consumption, engine_speed, gear, driving_mode, order_by
+        from car_driving
+    </sql>
+
+    <select id="selectCarDrivingByRow" parameterType="integer" resultMap="CarDrivingResult">
+        <include refid="selectCarDrivingVo"/>
+        where order_by = #{row}
+    </select>
+
+    <select id="selectCarDrivingCount" resultType="integer">
+        select count(*) from car_driving
+    </select>
+        
+    <insert id="insertCarDriving" parameterType="com.demo.platform.yjhapi.domain.CarDriving">
+        insert into car_driving
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="speed != null">speed,</if>
+            <if test="mileage != null">mileage,</if>
+            <if test="altitude != null">altitude,</if>
+            <if test="direction != null">direction,</if>
+            <if test="accelerator != null">accelerator,</if>
+            <if test="torquePercentage != null">torque_percentage,</if>
+            <if test="totalFuelConsumption != null">total_fuel_consumption,</if>
+            <if test="instantFuelConsumption != null">instant_fuel_consumption,</if>
+            <if test="engineSpeed != null">engine_speed,</if>
+            <if test="gear != null">gear,</if>
+            <if test="drivingMode != null">driving_mode,</if>
+            <if test="orderBy != null">order_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="speed != null">#{speed},</if>
+            <if test="mileage != null">#{mileage},</if>
+            <if test="altitude != null">#{altitude},</if>
+            <if test="direction != null">#{direction},</if>
+            <if test="accelerator != null">#{accelerator},</if>
+            <if test="torquePercentage != null">#{torquePercentage},</if>
+            <if test="totalFuelConsumption != null">#{totalFuelConsumption},</if>
+            <if test="instantFuelConsumption != null">#{instantFuelConsumption},</if>
+            <if test="engineSpeed != null">#{engineSpeed},</if>
+            <if test="gear != null">#{gear},</if>
+            <if test="drivingMode != null">#{drivingMode},</if>
+            <if test="orderBy != null">#{orderBy},</if>
+         </trim>
+    </insert>
+
+    <insert id="batchInsertCarDriving" parameterType="com.demo.platform.yjhapi.domain.CarDriving">
+        insert into car_driving
+        ( id, longitude, latitude, speed, mileage, altitude, direction, accelerator, torque_percentage, total_fuel_consumption,
+        instant_fuel_consumption, engine_speed, gear, driving_mode, order_by )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                #{item.id},
+                #{item.longitude},
+                #{item.latitude},
+                #{item.speed},
+                #{item.mileage},
+                #{item.altitude},
+                #{item.direction},
+                #{item.accelerator},
+                #{item.torquePercentage},
+                #{item.totalFuelConsumption},
+                #{item.instantFuelConsumption},
+                #{item.engineSpeed},
+                #{item.gear},
+                #{item.drivingMode},
+                #{item.orderBy}
+            )
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,11 @@
+version: "3"
+services:
+  api:
+    image: yjh-api:latest
+    container_name: api
+    ports:
+      - 8081:8081
+    volumes:
+      - ./logs/yjh-api/:/yjh-api/logs
+    network_mode: host
+    restart: always
